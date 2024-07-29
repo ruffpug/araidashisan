@@ -1,16 +1,19 @@
-# araidashisan
+# 洗い出しさん
 
-洗い出しさん
+https://github.com/ruffpug/araidashisan  
+[![CI](https://github.com/ruffpug/araidashisan/actions/workflows/CI.yml/badge.svg)](https://github.com/ruffpug/araidashisan/actions/workflows/CI.yml)  
 
-## Getting Started
+## コマンド
 
-This project is a starting point for a Flutter application.
-
-A few resources to get you started if this is your first Flutter project:
-
-- [Lab: Write your first Flutter app](https://docs.flutter.dev/get-started/codelab)
-- [Cookbook: Useful Flutter samples](https://docs.flutter.dev/cookbook)
-
-For help getting started with Flutter development, view the
-[online documentation](https://docs.flutter.dev/), which offers tutorials,
-samples, guidance on mobile development, and a full API reference.
+* 依存関係取得
+    * `flutter pub get`
+* build_runner実行
+    * `dart run build_runner build --delete-conflicting-outputs`
+* Web向けビルド
+    * `flutter build web --web-renderer html`
+* テスト実行
+    * `flutter test`
+* フォーマッタ実行
+    * `dart format ./`
+* Linter実行
+    * `flutter analyze`
