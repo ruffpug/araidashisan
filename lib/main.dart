@@ -14,7 +14,5 @@ Future<void> main() async {
 
   //  アプリを起動する。
   logger.i('アプリ起動');
-  run App(const MyApp());
-
-  //  ↑ わざとビルドが通らないようにしてみる。
+  runApp(const MyApp());
 }
