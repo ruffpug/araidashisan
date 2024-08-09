@@ -1,0 +1,107 @@
+name: CI
+
+on:
+
+  # ブランチへのpush
+  push:
+    branches:
+      - master
+      - main
+      - develop
+    paths-ignore:
+      - "**.md"
+      - "LICENSE"
+
+  # プルリクエスト
+  pull_request:
+    branches:
+      - master
+      - main
+      - develop
+
+  # Workflow dispatch
+  workflow_dispatch:
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+
+      # リポジトリのチェックアウト
+      - uses: actions/checkout@v4
+
+      # Flutterセットアップ
+      - name: Setup Flutter
+        uses: subosito/flutter-action@v2
+        with:
+          channel: 'stable'
+          flutter-version: '3.24.0'
+          cache: true
+
+      # Flutterバージョン表示
+      - name: Show Flutter version
+        run: flutter --version
+
+      # 依存関係復元
+      - name: Restore dependencies
+        run: flutter pub get
+
+      # build_runner実行
+      - name: Run build_runner
+        run: dart run build_runner build --delete-conflicting-outputs
+
+      # Web向けビルド
+      - name: Build Flutter Web
+        run: flutter build web --web-renderer html
+
+      # テスト
+      - name: Test
+        run: flutter test
+
+# ↓ 非PR時のステップ ↓
+
+      # Dart Format実行 (非PR時)
+      - name: Dart Format
+        if: ${{ github.event_name != 'pull_request' }}
+        run: dart format --set-exit-if-changed ./
+
+      # Flutter Analyze実行 (非PR時)
+      - name: Flutter Analyze
+        if: ${{ github.event_name != 'pull_request' }}
+        run: flutter analyze
+
+      # custom_lint実行 (非PR時)
+      - name: Custom Lint
+        if: ${{ github.event_name != 'pull_request' }}
+        run: dart run custom_lint
+
+# ↑ 非PR時のステップ ↑
+
+# ↓ PR時のステップ ↓
+
+      # Dart Format実行 (PR時)
+      - name: Dart Format (PR)
+        if: ${{ github.event_name == 'pull_request' }}
+        continue-on-error: true
+        run: dart format ./ > dart_format_report.txt
+
+      # Flutter Analyze実行 (PR時)
+      - name: Flutter Analyze (PR)
+        if: ${{ github.event_name == 'pull_request' }}
+        continue-on-error: true
+        run: flutter analyze > flutter_analyze_report.txt
+
+      # custom_lint実行 (PR時)
+      - name: Custom Lint (PR)
+        if: ${{ github.event_name == 'pull_request' }}
+        continue-on-error: true
+        run: dart run custom_lint > custom_lint_report.txt
+
+      # Danger実行
+      - name: Run Danger
+        if: ${{ github.event_name == 'pull_request' }}
+        uses: danger/danger-js@12.3.3
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
+# ↑ PR時のステップ ↑
