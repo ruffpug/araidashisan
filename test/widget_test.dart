@@ -5,8 +5,7 @@ void main() {
     test('テストケース', () {
       int calc(int x, int y) => x + y;
 
-      //  ↓ わざとコケるようにしてみる。
-      const int expected = 300;
+      const int expected = 3;
       final int actual = calc(1, 2);
 
       expect(actual, equals(expected));

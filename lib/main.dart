@@ -3,7 +3,8 @@ import 'package:araidashisan/logger.dart';
 import 'package:araidashisan/my_app.dart';
 import 'package:flutter/material.dart';
 
-Future<void> main() async {
+Future<void>  main() async {
+  //  ↑ わざとフォーマッタに指摘されるように
   WidgetsFlutterBinding.ensureInitialized();
 
   //  Loggerを初期化する。
