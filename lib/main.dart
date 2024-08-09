@@ -3,8 +3,7 @@ import 'package:araidashisan/logger.dart';
 import 'package:araidashisan/my_app.dart';
 import 'package:flutter/material.dart';
 
-Future<void>  main() async {
-  //  ↑ わざとフォーマッタに指摘されるように
+Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
 
   //  Loggerを初期化する。
@@ -15,5 +14,6 @@ Future<void>  main() async {
 
   //  アプリを起動する。
   logger.i('アプリ起動');
-  runApp(const MyApp());
+  runApp(MyApp());
+  //  ↑ Linterで指摘されるコードを追加
 }
