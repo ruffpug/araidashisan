@@ -1,6 +1,8 @@
 # 洗い出しさん
 
 https://github.com/ruffpug/araidashisan  
+https://ruffpug.github.io/araidashisan/  
+
 [![CI](https://github.com/ruffpug/araidashisan/actions/workflows/CI.yml/badge.svg)](https://github.com/ruffpug/araidashisan/actions/workflows/CI.yml)  
 
 ## コマンド

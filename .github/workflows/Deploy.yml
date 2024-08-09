@@ -1,0 +1,76 @@
+name: Deploy
+
+on:
+  # タグプッシュ時
+  push:
+    tags:
+      - 'v*'
+
+  # Workflow dispatch
+  workflow_dispatch:
+
+# パーミッション設定
+permissions:
+  contents: read
+  pages: write
+  id-token: write
+
+# 並列実行設定
+concurrency:
+  group: "pages"
+  cancel-in-progress: true
+
+jobs:
+  # ビルド
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      # リポジトリのチェックアウト
+      - uses: actions/checkout@v4
+
+      # GitHub Pagesの設定
+      - name: Setup Pages
+        uses: actions/configure-pages@v5
+
+      # Flutterセットアップ
+      - name: Setup Flutter
+        uses: subosito/flutter-action@v2
+        with:
+          channel: 'stable'
+          flutter-version: '3.24.0'
+          cache: true
+
+      # Flutterバージョン表示
+      - name: Show Flutter version
+        run: flutter --version
+
+      # 依存関係復元
+      - name: Restore dependencies
+        run: flutter pub get
+
+      # build_runner実行
+      - name: Run build_runner
+        run: dart run build_runner build --delete-conflicting-outputs
+
+      # Web向けビルド
+      - name: Build Flutter Web
+        run: flutter build web --web-renderer html
+
+      # 成果物のアップロード
+      - name: Upload artifact
+        uses: actions/upload-pages-artifact@v3
+        with:
+          path: build/web
+
+  # デプロイ
+  deploy:
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    runs-on: ubuntu-latest
+    needs: build
+    steps:
+      # デプロイ
+      - name: Deploy to GitHub Pages
+        id: deployment
+        uses: actions/deploy-pages@v4
