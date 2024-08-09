@@ -1,0 +1,17 @@
+{
+  "@@locale": "ja",
+  "appName": "洗い出しさん",
+  "sourceCodeButton": "ソースコード",
+  "licenseButton": "ライセンス",
+  "example": "# 入力例\n\n入力A:\n- 選択肢A1\n- 選択肢A2\n\n入力B:\n- 選択肢B1\n- |-\n  選択肢B2\n  改行\n- 選択肢B3\n",
+  "result": "結果: {count}パターン",
+  "copyAsMarkdownButton": "Markdownとしてコピー\n(※ エスケープ処理は行われません。)",
+  "copyAsCsvButton": "CSVとしてコピー",
+  "copyAsTsvButton": "TSVとしてコピー",
+  "errorMessageDialogTitle": "エラー内容",
+  "errorMessageDialogMessage1": "構文に誤りがあります。\nYAML形式 (Map<String, List<String>>) で記述してください。\n\n# 例\n\n入力:\n- 値1\n- 値2\n\n※ 入力部分の書き方が間違っている可能性があります。",
+  "errorMessageDialogMessage2": "構文に誤りがあります。\nYAML形式 (Map<String, List<String>>) で記述してください。\n\n# 例\n\n入力:\n- 値1\n- 値2\n\n※ 値部分のエスケープが必要な可能性があります。\n(小数値やbool値は \"ダブルクォート\" で囲ってエスケープしてください。)",
+  "errorMessageDialogCloseButton": "閉じる",
+  "repositoryUrl": "https://github.com/ruffpug/araidashisan",
+  "clipboardMessage": "コピーしました。"
+}
